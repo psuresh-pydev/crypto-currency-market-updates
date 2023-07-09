@@ -2,6 +2,7 @@ from flask import Flask, request
 from jsonschema import validate, ValidationError
 from flask_restx import Api, Resource
 import requests
+
 # import os
 
 app = Flask(__name__)
@@ -77,6 +78,22 @@ class MarketSummaryResource(Resource):
             return {"error": "Failed to fetch market summary"}, response.status_code
 
         return response.json()
+
+
+# Health check endpoint
+@api.route("/health")
+class HealthCheckResource(Resource):
+    @api.doc(responses={200: "Running"})
+    def get(self):
+        return {"status": "ok"}
+
+
+# Version info endpoint
+@api.route("/version")
+class VersionCheckResource(Resource):
+    @api.doc(responses={200: "App version provided"})
+    def get(self):
+        return {"version": "1.0.0"}
 
 
 if __name__ == "__main__":
