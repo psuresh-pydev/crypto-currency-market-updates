@@ -6,7 +6,6 @@ import requests
 app = Flask(__name__)
 
 api = Api(app)
-market_updates_api = api.namespace('', description='Market Updates API')
 
 # JSON schema for validating market query parameter
 market_schema = {
@@ -27,9 +26,9 @@ def handle_validation_error(error):
     return response, 400
 
 
-@market_updates_api.route('/markets/summaries')
+@api.route('/markets/summaries')
 class MarketSummariesResource(Resource):
-    @market_updates_api.doc(responses={200: 'Market summaries retrieved successfully'})
+    @api.doc(responses={200: 'Market summaries retrieved successfully'})
     def get(self):
         """
         Get all market summaries
@@ -46,9 +45,9 @@ class MarketSummariesResource(Resource):
         return response.json()
 
 
-@market_updates_api.route('/markets')
+@api.route('/markets')
 class MarketSummaryResource(Resource):
-    @market_updates_api.doc(params={'market': 'Market symbol'},
+    @api.doc(params={'market': 'Market symbol'},
                             responses={200: 'Market summary retrieved successfully'})
     def get(self):
         """
