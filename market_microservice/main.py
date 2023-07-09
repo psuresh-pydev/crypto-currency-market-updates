@@ -10,45 +10,42 @@ api = Api(app)
 # JSON schema for validating market query parameter
 market_schema = {
     "type": "object",
-    "properties": {
-        "market": {"type": "string"}
-    },
-    "required": ["market"]
+    "properties": {"market": {"type": "string"}},
+    "required": ["market"],
 }
 
 
 @app.errorhandler(ValidationError)
 def handle_validation_error(error):
-    response = {
-        "error": "Bad Request",
-        "message": error.message
-    }
+    response = {"error": "Bad Request", "message": error.message}
     return response, 400
 
 
-@api.route('/markets/summaries')
+@api.route("/markets/summaries")
 class MarketSummariesResource(Resource):
-    @api.doc(responses={200: 'Market summaries retrieved successfully'})
+    @api.doc(responses={200: "Market summaries retrieved successfully"})
     def get(self):
         """
         Get all market summaries
         """
-        headers = {
-            "Content-Type": "application/json"
-        }
+        headers = {"Content-Type": "application/json"}
 
         # Make request to Bittrex API
-        response = requests.get("https://api.bittrex.com/v3/markets/summaries", headers=headers)
+        response = requests.get(
+            "https://api.bittrex.com/v3/markets/summaries", headers=headers
+        )
         if response.status_code != 200:
             return {"error": "Failed to fetch market summaries"}, response.status_code
 
         return response.json()
 
 
-@api.route('/markets')
+@api.route("/markets")
 class MarketSummaryResource(Resource):
-    @api.doc(params={'market': 'Market symbol'},
-                            responses={200: 'Market summary retrieved successfully'})
+    @api.doc(
+        params={"market": "Market symbol"},
+        responses={200: "Market summary retrieved successfully"},
+    )
     def get(self):
         """
         Get market summary by market symbol
@@ -60,11 +57,9 @@ class MarketSummaryResource(Resource):
             return {"error": error.message}, 400
 
         # Get the market query parameter value
-        market = request.args.get('market')
+        market = request.args.get("market")
 
-        headers = {
-            "Content-Type": "application/json"
-        }
+        headers = {"Content-Type": "application/json"}
 
         # Make request to Bittrex API for market summary
         url = f"https://api.bittrex.com/v3/markets/{market}/summary"
@@ -75,5 +70,5 @@ class MarketSummaryResource(Resource):
         return response.json()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()

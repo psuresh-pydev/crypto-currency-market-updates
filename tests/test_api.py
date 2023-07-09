@@ -9,19 +9,19 @@ def client():
 
 
 def test_get_all_market_summaries(client):
-    response = client.get('/markets/summaries')
+    response = client.get("/markets/summaries")
     assert response.status_code == 200
 
 
 def test_get_market_summary(client):
-    response = client.get('/markets?market=ltc-btc')
+    response = client.get("/markets?market=ltc-btc")
     assert response.status_code == 200
 
 
 def test_get_market_summary_missing_param(client):
-    response = client.get('/markets')
+    response = client.get("/markets")
     assert response.status_code == 400
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main()
