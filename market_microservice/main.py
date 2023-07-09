@@ -2,6 +2,7 @@ from flask import Flask, request
 from jsonschema import validate, ValidationError
 from flask_restx import Api, Resource
 import requests
+# import os
 
 app = Flask(__name__)
 
@@ -28,7 +29,11 @@ class MarketSummariesResource(Resource):
         """
         Get all market summaries
         """
-        headers = {"Content-Type": "application/json"}
+        # api_key = os.environ.get("api_key")
+        headers = {
+            "Content-Type": "application/json",
+            # "Authorization": f"Bearer {api_key}",
+        }
 
         # Make request to Bittrex API
         response = requests.get(
@@ -59,7 +64,11 @@ class MarketSummaryResource(Resource):
         # Get the market query parameter value
         market = request.args.get("market")
 
-        headers = {"Content-Type": "application/json"}
+        # api_key = os.environ.get("api_key")
+        headers = {
+            "Content-Type": "application/json",
+            # "Authorization": f"Bearer {api_key}",
+        }
 
         # Make request to Bittrex API for market summary
         url = f"https://api.bittrex.com/v3/markets/{market}/summary"
