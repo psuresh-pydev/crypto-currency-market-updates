@@ -94,7 +94,9 @@ class VersionCheckResource(Resource):
     @api.doc(responses={200: "App version provided"})
     def get(self):
         return {"version": "1.0.0"}
-
-
+# test1
+# test2
+# test3
+# test4
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
