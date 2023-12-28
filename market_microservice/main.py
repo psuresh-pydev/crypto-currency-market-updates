@@ -95,9 +95,6 @@ class VersionCheckResource(Resource):
     def get(self):
         return {"version": "1.0.0"}
 
-
 # placeholder for additional API
-# Need to add some more API
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
