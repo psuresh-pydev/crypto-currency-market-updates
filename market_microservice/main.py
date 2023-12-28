@@ -97,7 +97,7 @@ class VersionCheckResource(Resource):
 
 
 # placeholder for additional API
-# Need to add some more APIs
+# Need to add some more API
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
